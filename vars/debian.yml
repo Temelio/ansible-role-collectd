@@ -1,0 +1,8 @@
+---
+
+# Debian specific vars
+
+collectd_packages:
+  - 'collectd'
+
+collectd_service_name: 'collectd'

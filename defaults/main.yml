@@ -2,3 +2,11 @@
 
 # Defaults vars file for collectd role
 
+# Package installation management
+collectd_package_state: 'present'
+collectd_cache_valid_time: 3600
+collectd_update_cache: True
+
+# Service management
+collectd_service_enabled: True
+collectd_service_state: 'started'

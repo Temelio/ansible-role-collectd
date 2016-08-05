@@ -1,0 +1,14 @@
+---
+
+# Manage Collectd install on Debian systems
+
+- name: 'Install collectd'
+  become: True
+  apt:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+    cache_valid_time: "{{ collectd_cache_valid_time }}"
+    update_cache: "{{ collectd_update_cache }}"
+  with_items: "{{ collectd_packages }}"
+  notify:
+    - 'restart collectd'
