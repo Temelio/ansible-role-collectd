@@ -10,3 +10,6 @@ collectd_update_cache: True
 # Service management
 collectd_service_enabled: True
 collectd_service_state: 'started'
+
+# Plugins management
+collectd_plugins: []

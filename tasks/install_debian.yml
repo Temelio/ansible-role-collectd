@@ -12,3 +12,18 @@
   with_items: "{{ collectd_packages }}"
   notify:
     - 'restart collectd'
+
+
+- name: 'Install collectd plugins dependencies'
+  become: True
+  apt:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+    cache_valid_time: "{{ collectd_cache_valid_time }}"
+    update_cache: "{{ collectd_update_cache }}"
+  with_items: "{{ collectd_plugins | map(
+                    'extract',
+                    collectd_plugins_dependencies[ansible_distribution_release]
+                  ) | list }}"
+  notify:
+    - 'restart collectd'
