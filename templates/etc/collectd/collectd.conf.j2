@@ -1,0 +1,120 @@
+# {{ ansible_managed }}
+# Config file for collectd(1).
+
+##############################################################################
+# Global                                                                     #
+#----------------------------------------------------------------------------#
+# Global settings for the daemon.                                            #
+##############################################################################
+
+Hostname "{{ collectd_hostname }}"
+FQDNLookup {{ collectd_fqdn_lookup }}
+BaseDir "{{ collectd_base_dir }}"
+PluginDir "{{ collectd_plugin_dir }}"
+TypesDB {{ collectd_types_db | join(' ') }}
+
+AutoLoadPlugin {{ collectd_auto_load_plugin }}
+
+Interval {{ collectd_interval }}
+Timeout {{ collectd_timeout }}
+ReadThreads {{ colectd_read_threads }}
+WriteThreads {{ colectd_write_threads }}
+
+{% if collectd_write_queue_limit_high %}
+WriteQueueLimitHigh {{ collectd_write_queue_limit_high }}
+{% endif %}
+{% if collectd_write_queue_limit_low %}
+WriteQueueLimitLow {{ collectd_write_queue_limit_low }}
+{% endif %}
+
+
+##############################################################################
+# Logging                                                                    #
+#----------------------------------------------------------------------------#
+# Plugins which provide logging functions should be loaded first, so log     #
+# messages generated when loading or configuring other plugins can be        #
+# accessed.                                                                  #
+##############################################################################
+
+{% for plugin in collectd_logging_plugins_config %}
+{% if (plugin.activate_entries is defined) and ((plugin.activate_entries | length) > 0) %}
+<LoadPlugin {{ plugin.name }}>
+{% for entry in plugin.activate_entries %}
+    {{ entry }}
+{% endfor %}
+</LoadPlugin>
+{% else %}
+LoadPlugin {{ plugin.name }}
+{% endif %}
+{% endfor %}
+
+{% for plugin in collectd_logging_plugins_config %}
+<Plugin {{ plugin.name }}>
+{% for entry in plugin.config_entries %}
+    {{ entry }}
+{% endfor %}
+</Plugin>
+{% endfor %}
+
+
+##############################################################################
+# LoadPlugin section                                                         #
+#----------------------------------------------------------------------------#
+# Specify what features to activate.                                         #
+##############################################################################
+
+{% for plugin in collectd_plugins_config %}
+{% if (plugin.activate_entries is defined) and ((plugin.activate_entries | length) > 0) %}
+<LoadPlugin {{ plugin.name }}>
+{% for entry in plugin.activate_entries %}
+    {{ entry }}
+{% endfor %}
+</LoadPlugin>
+{% else %}
+LoadPlugin {{ plugin.name }}
+{% endif %}
+{% endfor %}
+
+
+##############################################################################
+# Plugin configuration                                                       #
+#----------------------------------------------------------------------------#
+# In this section configuration stubs for each plugin are provided. A desc-  #
+# ription of those options is available in the collectd.conf(5) manual page. #
+##############################################################################
+
+{% for plugin in collectd_plugins_config %}
+<Plugin {{ plugin.name }}>
+{% if (plugin.config_entries is defined) and ((plugin.config_entries | length) > 0) %}
+{% for entry in plugin.config_entries %}
+    {{ entry }}
+{% endfor %}
+{% endif %}
+{% if (plugin.config_sections is defined) and ((plugin.config_sections | length) > 0) %}
+{% for section in plugin.config_sections %}
+    <{{ section.name }}>
+{% if (section.entries is defined) and ((section.entries | length) > 0) %}
+{% for section_entry in section.entries %}
+        {{ section_entry }}
+{% endfor %}
+{% endif %}
+{% if (section.sub_sections is defined) and ((section.sub_sections | length) > 0) %}
+{% for sub_section in section.sub_sections %}
+        <{{ sub_section.name }}>
+{% if (sub_section.entries is defined) and ((sub_section.entries | length) > 0) %}
+{% for sub_section_entry in sub_section.entries %}
+            {{ sub_section_entry }}
+{% endfor %}
+{% endif %}
+        </{{ (sub_section.name.split(' '))[0] }}>
+{% endfor %}
+{% endif %}
+    </{{ (section.name.split(' '))[0] }}>
+{% endfor %}
+{% endif %}
+</Plugin>
+{% endfor %}
+
+<Include "/etc/collectd/collectd.conf.d">
+    Filter "*.conf"
+</Include>

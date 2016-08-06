@@ -1,0 +1,37 @@
+---
+
+# Manage Collectd configuration
+
+- name: 'Manage collectd main configuration file'
+  become: True
+  template:
+    src: 'etc/collectd/collectd.conf.j2'
+    dest: '/etc/collectd/collectd.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+    backup: True
+    validate: 'collectd -t -C %s'
+  notify: 'restart collectd'
+
+
+- name: 'Manage collectd custom types file'
+  become: True
+  template:
+    src: 'etc/collectd/custom_types.db.j2'
+    dest: "{{ collectd_custom_types_file_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+  notify: 'restart collectd'
+
+
+- name: 'Manage logrotate configuration'
+  become: True
+  template:
+    src: "{{ role_path }}/templates/etc/logrotate.d/logrotate.conf.j2"
+    dest: "{{ collectd_logrotate_file_path }}"
+    owner: "{{ collectd_logrotate_file_owner }}"
+    group: "{{ collectd_logrotate_file_group }}"
+    mode: "{{ collectd_logrotate_file_mode }}"
+  when: "{{ collectd_logrotate_managed }}"
