@@ -2,9 +2,6 @@
 
 # Debian specific vars
 
-collectd_packages:
-  - 'collectd'
-
 collectd_service_name: 'collectd'
 
 collectd_plugins_dependencies:

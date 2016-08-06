@@ -3,9 +3,22 @@
 # Defaults vars file for collectd role
 
 # Package installation management
+# Instead collectd_use_ppa set to True, if ansible_distribution_release not
+# referenced in collectd_ppa_managed_distributions ppa, ppa will not installed
+collectd_use_ppa: True
+collectd_ppa_managed_distributions:
+  - 'trusty'
+collectd_ppa_key_id: '7543C08D555DC473B9270ACDAF7ECBB3476ACEB3'
+collectd_ppk_key_server: 'keyserver.ubuntu.com'
+collectd_ppa_source: 'ppa:collectd/collectd-5.5'
+
+collectd_packages:
+  - 'collectd=5.5.1*'
+  - 'collectd-core=5.5.1*'
 collectd_package_state: 'present'
 collectd_cache_valid_time: 3600
 collectd_update_cache: True
+
 
 # Service management
 collectd_service_enabled: True
