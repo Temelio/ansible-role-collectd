@@ -24,3 +24,14 @@
     group: 'root'
     mode: '0400'
   notify: 'restart collectd'
+
+
+- name: 'Manage logrotate configuration'
+  become: True
+  template:
+    src: "{{ role_path }}/templates/etc/logrotate.d/logrotate.conf.j2"
+    dest: "{{ collectd_logrotate_file_path }}"
+    owner: "{{ collectd_logrotate_file_owner }}"
+    group: "{{ collectd_logrotate_file_group }}"
+    mode: "{{ collectd_logrotate_file_mode }}"
+  when: "{{ collectd_logrotate_managed }}"
