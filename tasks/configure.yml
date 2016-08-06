@@ -11,7 +11,7 @@
     group: 'root'
     mode: '0400'
     backup: True
-    validate: 'collectd -t -C /etc/collectd/collectd.conf'
+    validate: 'collectd -t -C %s'
   notify: 'restart collectd'
 
 
