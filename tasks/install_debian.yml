@@ -1,0 +1,51 @@
+---
+
+# Manage Collectd install on Debian systems
+
+- name: 'Install ppa gpg key'
+  become: True
+  apt_key:
+    id: "{{ collectd_ppa_key_id }}"
+    keyserver: "{{ collectd_ppk_key_server }}"
+  when: "{{ collectd_use_ppa and
+    (ansible_distribution_release in collectd_ppa_managed_distributions) }}"
+
+
+- name: 'Install ppa repository'
+  become: True
+  apt_repository:
+    repo: "{{ collectd_ppa_source }}"
+    update_cache: True
+  when: "{{ collectd_use_ppa and
+    (ansible_distribution_release in collectd_ppa_managed_distributions) }}"
+
+
+- name: 'Install collectd'
+  become: True
+  apt:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+    cache_valid_time: "{{ collectd_cache_valid_time }}"
+    update_cache: "{{ collectd_update_cache }}"
+  with_items: "{{ collectd_packages }}"
+  notify:
+    - 'restart collectd'
+
+
+- name: 'Install collectd plugins dependencies'
+  become: True
+  apt:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+    cache_valid_time: "{{ collectd_cache_valid_time }}"
+    update_cache: "{{ collectd_update_cache }}"
+  with_items: "{{ collectd_plugins_with_dependencies
+                  | map(
+                    'extract',
+                    collectd_plugins_dependencies[ansible_distribution_release]
+                  )
+                  | list }}"
+  when: "{{
+    collectd_plugins_dependencies[ansible_distribution_release] is defined }}"
+  notify:
+    - 'restart collectd'
