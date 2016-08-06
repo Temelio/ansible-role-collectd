@@ -27,3 +27,10 @@
   tags:
     - 'install'
     - 'collectd'
+
+
+- name: 'Manage collectd configuration tasks'
+  include: 'configure.yml'
+  tags:
+    - 'configure'
+    - 'collectd'

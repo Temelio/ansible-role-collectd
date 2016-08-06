@@ -1,3 +1,26 @@
 ---
 
 # Manage Collectd configuration
+
+- name: 'Manage collectd main configuration file'
+  become: True
+  template:
+    src: 'etc/collectd/collectd.conf.j2'
+    dest: '/etc/collectd/collectd.conf'
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+    backup: True
+    validate: 'collectd -t -C /etc/collectd/collectd.conf'
+  notify: 'restart collectd'
+
+
+- name: 'Manage collectd custom types file'
+  become: True
+  template:
+    src: 'etc/collectd/custom_types.db.j2'
+    dest: "{{ collectd_custom_types_file_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+  notify: 'restart collectd'
