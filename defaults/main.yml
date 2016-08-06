@@ -54,7 +54,10 @@ collectd_plugins_with_dependencies: "{{
   collectd_plugins_dependencies[ansible_distribution_release].keys()
   | intersect(collectd_plugins) }}"
 
-collectd_plugins_config:
+collectd_plugins_config: "{{
+  collectd_base_plugins_config | union(collectd_extra_plugins_config) }}"
+
+collectd_base_plugins_config:
   - name: 'df'
     config_entries:
       - 'FSType rootfs'
@@ -78,6 +81,9 @@ collectd_plugins_config:
       - 'DataDir "/var/lib/collectd/rrd"'
   - name: 'swap'
   - name: 'users'
+
+collectd_extra_plugins_config: []
+
 
 # Logrotate configuration
 collectd_log_dir_path: '/var/log/collectd'
