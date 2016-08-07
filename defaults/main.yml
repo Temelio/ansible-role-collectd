@@ -29,6 +29,12 @@ collectd_service_state: 'started'
 collectd_custom_types: {}
 collectd_custom_types_file_path: '/etc/collectd/my_types.db'
 
+
+# Nework server auth data
+collectd_network_server_auth_data: {}
+collectd_network_auth_file_path: '/etc/collectd/network_server_auth.db'
+
+
 # Main configuration
 collectd_hostname: 'localhost'
 collectd_fqdn_lookup: 'true'

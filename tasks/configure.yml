@@ -13,6 +13,7 @@
     backup: True
     validate: 'collectd -t -C %s'
   notify: 'restart collectd'
+  no_log: True
 
 
 - name: 'Manage collectd custom types file'
@@ -24,6 +25,19 @@
     group: 'root'
     mode: '0400'
   notify: 'restart collectd'
+
+
+- name: 'Manage collectd network server auth file'
+  become: True
+  template:
+    src: 'etc/collectd/auth.db.j2'
+    dest: "{{ collectd_network_auth_file_path }}"
+    owner: 'root'
+    group: 'root'
+    mode: '0400'
+  notify: 'restart collectd'
+  no_log: True
+  when: "{{ collectd_network_server_auth_data | length > 0 }}"
 
 
 - name: 'Manage logrotate configuration'

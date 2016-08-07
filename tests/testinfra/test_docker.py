@@ -41,7 +41,11 @@ def test_config_files(File):
     """
     Test config files exists
     """
-    config_files = ['/etc/collectd/collectd.conf', '/etc/collectd/my_types.db']
+    config_files = [
+        '/etc/collectd/collectd.conf',
+        '/etc/collectd/my_types.db',
+        '/etc/collectd/network_server_auth.db'
+    ]
     for current_file in config_files:
         File(current_file).exists
         File(current_file).is_file
