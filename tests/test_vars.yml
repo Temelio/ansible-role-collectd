@@ -1,0 +1,4 @@
+---
+
+collectd_network_server_auth_data:
+  foo: 'var'

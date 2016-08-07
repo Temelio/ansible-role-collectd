@@ -1,0 +1,5 @@
+# {{ ansible_managed }}
+
+{% for username, password in collectd_network_server_auth_data.items() %}
+{{ username }}: {{ password }}
+{% endfor %}
