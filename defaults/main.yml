@@ -8,6 +8,7 @@
 collectd_use_ppa: True
 collectd_ppa_managed_distributions:
   - 'trusty'
+  - 'xenial'
 collectd_ppa_key_id: '7543C08D555DC473B9270ACDAF7ECBB3476ACEB3'
 collectd_ppk_key_server: 'keyserver.ubuntu.com'
 collectd_ppa_source: 'ppa:collectd/collectd-5.5'
