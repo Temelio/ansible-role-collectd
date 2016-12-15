@@ -2,11 +2,11 @@
 
 # Main tasks file for collectd role
 
-- name: 'Load the OS specific varibles'
-  include_vars: "{{ role_path }}/vars/{{ ansible_os_family | lower }}.yml"
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
   tags:
-    - 'install'
-    - 'collectd'
+    - 'role::collectd'
+    - 'role::collectd::init'
 
 
 - include: 'install_debian.yml'

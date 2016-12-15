@@ -40,12 +40,8 @@
     cache_valid_time: "{{ collectd_cache_valid_time }}"
     update_cache: "{{ collectd_update_cache }}"
   with_items: "{{ collectd_plugins_with_dependencies
-                  | map(
-                    'extract',
-                    collectd_plugins_dependencies[ansible_distribution_release]
-                  )
+                  | map('extract', collectd_plugins_dependencies)
                   | list }}"
-  when: "{{
-    collectd_plugins_dependencies[ansible_distribution_release] is defined }}"
+  when: "{{ (collectd_plugins_dependencies | length) > 0 }}"
   notify:
     - 'restart collectd'

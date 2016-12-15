@@ -1,0 +1,5 @@
+---
+
+# Debian family specific vars
+
+_collectd_service_name: 'collectd'

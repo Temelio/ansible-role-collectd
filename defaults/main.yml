@@ -13,14 +13,16 @@ collectd_ppk_key_server: 'keyserver.ubuntu.com'
 collectd_ppa_source: 'ppa:collectd/collectd-5.5'
 
 collectd_packages:
-  - 'collectd=5.5.1*'
-  - 'collectd-core=5.5.1*'
+  - 'collectd=5.5.2*'
+  - 'collectd-core=5.5.2*'
 collectd_package_state: 'present'
 collectd_cache_valid_time: 3600
 collectd_update_cache: True
+collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
 
 
 # Service management
+collectd_service_name: "{{ _collectd_service_name }}"
 collectd_service_enabled: True
 collectd_service_state: 'started'
 
@@ -70,7 +72,7 @@ collectd_plugins: "{{
   collectd_plugins_config | map(attribute='name') | list }}"
 
 collectd_plugins_with_dependencies: "{{
-  collectd_plugins_dependencies[ansible_distribution_release].keys()
+  collectd_plugins_dependencies.keys()
   | intersect(collectd_plugins) }}"
 
 collectd_plugins_config: "{{
