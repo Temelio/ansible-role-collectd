@@ -7,8 +7,10 @@ import pytest
 # pytestmark = pytest.mark.destructive
 
 # To run all the tests on given docker images:
-pytestmark = pytest.mark.docker_images('infopen/ubuntu-trusty-ssh',
-                                       'infopen/ubuntu-xenial-ssh-py27')
+pytestmark = pytest.mark.docker_images(
+    'infopen/ubuntu-trusty-ssh:0.1.0',
+    'infopen/ubuntu-xenial-ssh-py27:0.2.0'
+)
 
 # Both
 # pytestmark = [
