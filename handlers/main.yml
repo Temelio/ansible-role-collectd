@@ -3,9 +3,13 @@
 # Handlers main file for collectd role
 
 
-- name: 'restart collectd'
+- name: 'HANDLER | Restart collectd'
   become: True
   service:
     name: "{{ collectd_service_name }}"
     state: 'restarted'
   when: "{{ collectd_service_state != 'stopped' }}"
+  tags:
+    - 'role::collectd'
+    - 'role::collectd::config'
+    - 'role::collectd::install'
