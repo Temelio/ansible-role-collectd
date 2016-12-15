@@ -2,35 +2,38 @@
 
 # Main tasks file for collectd role
 
-- name: 'Load the OS specific varibles'
-  include_vars: "{{ role_path }}/vars/{{ ansible_os_family | lower }}.yml"
+- name: 'INIT | Manage variables to use for our target'
+  include: "{{ role_path }}/tasks/manage_variables.yml"
   tags:
-    - 'install'
-    - 'collectd'
+    - 'role::collectd'
+    - 'role::collectd::config'
+    - 'role::collectd::init'
+    - 'role::collectd::install'
 
 
-- include: 'install_debian.yml'
+- name: 'INSTALL | Manage Debian family installation tasks'
+  include: "{{ role_path }}/tasks/install_debian.yml"
   when: "{{ ansible_os_family == 'Debian' }}"
   tags:
-    - 'install'
-    - 'collectd'
+    - 'role::collectd'
+    - 'role::collectd::install'
 
 
-- name: 'Manage collectd service'
+- name: 'SERVICE | Manage collectd service'
   become: True
   service:
     name: "{{ collectd_service_name }}"
     enabled: "{{ collectd_service_enabled }}"
     state: "{{ collectd_service_state }}"
   notify:
-    - 'restart collectd'
+    - 'HANDLER | Restart collectd'
   tags:
-    - 'install'
-    - 'collectd'
+    - 'role::collectd'
+    - 'role::collectd::install'
 
 
-- name: 'Manage collectd configuration tasks'
-  include: 'configure.yml'
+- name: 'CONFIG | Manage collectd configuration tasks'
+  include: "{{ role_path }}/tasks/configure.yml"
   tags:
-    - 'configure'
-    - 'collectd'
+    - 'role::collectd'
+    - 'role::collectd::config'
