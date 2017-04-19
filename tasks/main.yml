@@ -11,9 +11,8 @@
     - 'role::collectd::install'
 
 
-- name: 'INSTALL | Manage Debian family installation tasks'
-  include: "{{ role_path }}/tasks/install_debian.yml"
-  when: "{{ ansible_os_family == 'Debian' }}"
+- name: 'INSTALL | Manage {{ ansible_os_family }} family installation tasks'
+  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
   tags:
     - 'role::collectd'
     - 'role::collectd::install'

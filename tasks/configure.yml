@@ -2,11 +2,13 @@
 
 # Manage Collectd configuration
 
+
+
 - name: 'CONFIG | MAIN | Manage collectd main configuration file'
   become: True
   template:
     src: 'etc/collectd/collectd.conf.j2'
-    dest: '/etc/collectd/collectd.conf'
+    dest: '/{{ collectd_config_directory }}/collectd.conf'
     owner: 'root'
     group: 'root'
     mode: '0400'

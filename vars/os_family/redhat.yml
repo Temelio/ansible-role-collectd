@@ -1,0 +1,14 @@
+---
+
+# RedHat family specific vars
+
+_collectd_service_name: 'collectd'
+
+collectd_packages:
+  - 'collectd'
+  - 'collectd-disk'
+
+collectd_config_directory: "etc/"
+collectd_custom_types_file_path: "/usr/share/collectd/my_types.db"
+collectd_plugin_dir: "/usr/lib64/collectd"
+collectd_network_auth_file_path: '/usr/share/collectd/network_server_auth.db'
