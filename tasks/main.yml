@@ -11,8 +11,8 @@
     - 'role::collectd::install'
 
 
-- name: 'INSTALL | Manage {{ ansible_os_family }} family installation tasks'
-  include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
+- name: 'INSTALL | Manage installation tasks'
+  include: "{{ role_path }}/tasks/install_{{ ansible_distribution | lower }}.yml"
   tags:
     - 'role::collectd'
     - 'role::collectd::install'
