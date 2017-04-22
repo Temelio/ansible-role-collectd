@@ -1,0 +1,33 @@
+---
+
+# Manage Collectd install on Fedora systems
+
+- name: 'INSTALL | DNF | Install collectd'
+  become: True
+  package:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+  with_items: "{{ collectd_packages }}"
+  notify: 'HANDLER | Restart collectd'
+
+
+- name: 'INSTALL | DNF | Install collectd plugins dependencies'
+  become: True
+  package:
+    name: "{{ item }}"
+    state: "{{ collectd_package_state }}"
+  with_items: "{{ collectd_plugins_with_dependencies
+                  | map('extract', collectd_plugins_dependencies)
+                  | list }}"
+  when:
+    - "{{ (collectd_plugins_dependencies | length) > 0 }}"
+  notify: 'HANDLER | Restart collectd'
+
+- name: 'INSTALL | Enable Collectd to connect to the network with TCP'
+  seboolean:
+    name: collectd_tcp_network_connect
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux is defined
+    - ansible_selinux.config_mode == "enforcing"
