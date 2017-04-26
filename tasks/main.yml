@@ -18,6 +18,13 @@
     - 'role::collectd::install'
 
 
+- name: 'CONFIG | Manage collectd configuration tasks'
+  include: "{{ role_path }}/tasks/configure.yml"
+  tags:
+    - 'role::collectd'
+    - 'role::collectd::config'
+
+
 - name: 'SERVICE | Manage collectd service'
   become: True
   service:
@@ -29,10 +36,3 @@
   tags:
     - 'role::collectd'
     - 'role::collectd::install'
-
-
-- name: 'CONFIG | Manage collectd configuration tasks'
-  include: "{{ role_path }}/tasks/configure.yml"
-  tags:
-    - 'role::collectd'
-    - 'role::collectd::config'
