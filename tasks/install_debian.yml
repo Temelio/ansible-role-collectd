@@ -11,22 +11,20 @@
   with_items: "{{ collectd_system_dependencies }}"
 
 
-- name: 'INSTALL | APT | Install ppa gpg key'
+- name: 'INSTALL | APT | Install additional repository gpg key'
   apt_key:
-    id: "{{ collectd_ppa_key_id }}"
-    keyserver: "{{ collectd_ppk_key_server }}"
-  when:
-    - "collectd_use_ppa | bool"
-    - "ansible_distribution_release in collectd_ppa_managed_distributions"
+    id: "{{ item.id }}"
+    keyserver: "{{ item.keyserver }}"
+  with_items: "{{ collectd_repositories_keys }}"
+  when: "collectd_use_additional_repository | bool"
 
 
-- name: 'INSTALL | APT | Install ppa repository'
+- name: 'INSTALL | APT | Install additional repository'
   apt_repository:
-    repo: "{{ collectd_ppa_source }}"
+    repo: "{{ item.repo }}"
     update_cache: True
-  when:
-    - "collectd_use_ppa | bool"
-    - "ansible_distribution_release in collectd_ppa_managed_distributions"
+  with_items: "{{ collectd_repositories }}"
+  when: "collectd_use_additional_repository | bool"
 
 
 - name: 'INSTALL | APT | Install collectd'
