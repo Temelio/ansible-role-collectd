@@ -2,12 +2,15 @@
 
 galaxy_info:
   author: 'Alexandre Chaussier'
-  description: 'Install and configure collectd'
-  company: 'Temelio (http://temelio.com)'
+  description: 'Ansible role to install and configure Collectd'
+  company: 'Temelio (http://www.temelio.com)'
   license: 'MIT'
   min_ansible_version: '2.1'
   github_branch: 'master'
   platforms:
+    - name: 'Debian'
+      versions:
+        - 'jessie'
     - name: 'Ubuntu'
       versions:
         - 'trusty'

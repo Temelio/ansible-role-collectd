@@ -11,32 +11,34 @@ and platform requirements are listed in the metadata file.
 
 ## Testing
 
-This role contains two tests methods :
-- locally using Vagrant
-- automatically with Travis
+This role use [Molecule](https://github.com/metacloud/molecule/) to run tests.
 
-### Testing dependencies
-- install [Vagrant](https://www.vagrantup.com)
-- install [Vagrant serverspec plugin](https://github.com/jvoorhis/vagrant-serverspec)
-```
-$ vagrant plugin install vagrant-serverspec
-```
-- install ruby dependencies
-```
-$ bundle install
-```
+Locally, you can run tests on Docker (default driver) or Vagrant.
+Travis run tests using Docker driver only.
+
+Currently, tests are done on:
+- Debian Jessie
+- Ubuntu Trusty
+- Ubuntu Xenial
+
+and use:
+- Ansible 2.0.x
+- Ansible 2.1.x
+- Ansible 2.2.x
+- Ansible 2.3.x
 
 ### Running tests
 
-#### Run playbook and test
+#### Using Docker driver
 
-- if Vagrant box not running
 ```
-$ vagrant up
+$ tox
 ```
-- if Vagrant box running
+
+#### Using Vagrant driver
+
 ```
-$ vagrant provision
+$ MOLECULE_DRIVER=vagrant tox
 ```
 
 ## Role Variables
@@ -44,12 +46,15 @@ $ vagrant provision
 ### Default role variables
 
 ``` yaml
+# Defaults vars file for collectd role
+
 # Package installation management
 # Instead collectd_use_ppa set to True, if ansible_distribution_release not
 # referenced in collectd_ppa_managed_distributions ppa, ppa will not installed
 collectd_use_ppa: True
 collectd_ppa_managed_distributions:
   - 'trusty'
+  - 'xenial'
 collectd_ppa_key_id: '7543C08D555DC473B9270ACDAF7ECBB3476ACEB3'
 collectd_ppk_key_server: 'keyserver.ubuntu.com'
 collectd_ppa_source: 'ppa:collectd/collectd-5.5'
@@ -171,9 +176,11 @@ None
 
 ## Example Playbook
 
-    - hosts: servers
-      roles:
-         - { role: Temelio.collectd }
+``` yaml
+- hosts: servers
+  roles:
+    - { role: Temelio.collectd }
+```
 
 ## License
 
@@ -182,6 +189,5 @@ MIT
 ## Author Information
 
 Alexandre Chaussier (for Temelio company)
-- http://temelio.com
+- http://www.temelio.com
 - alexandre.chaussier [at] temelio.com
-
