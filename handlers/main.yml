@@ -8,7 +8,7 @@
   service:
     name: "{{ collectd_service_name }}"
     state: 'restarted'
-  when: "{{ collectd_service_state != 'stopped' }}"
+  when: "collectd_service_state != 'stopped'"
   tags:
     - 'role::collectd'
     - 'role::collectd::config'
