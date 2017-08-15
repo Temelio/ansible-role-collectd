@@ -2,4 +2,9 @@
 
 # Debian family specific vars
 
+# Packages
+_collectd_system_dependencies:
+  - name: 'ca-certificates'
+
+# Service
 _collectd_service_name: 'collectd'

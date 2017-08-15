@@ -2,6 +2,15 @@
 
 # Manage Collectd install on Debian systems
 
+- name: 'INSTALL | APT | Install system dependencies'
+  apt:
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
+    update_cache: True
+    cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
+  with_items: "{{ collectd_system_dependencies }}"
+
+
 - name: 'INSTALL | APT | Install ppa gpg key'
   apt_key:
     id: "{{ collectd_ppa_key_id }}"
@@ -24,8 +33,8 @@
   apt:
     name: "{{ item }}"
     state: "{{ collectd_package_state }}"
-    cache_valid_time: "{{ collectd_cache_valid_time }}"
-    update_cache: "{{ collectd_update_cache }}"
+    cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
+    update_cache: "{{ collectd_repository_update_cache }}"
   with_items: "{{ collectd_packages }}"
   notify: 'HANDLER | Restart collectd'
 
@@ -34,8 +43,8 @@
   apt:
     name: "{{ item }}"
     state: "{{ collectd_package_state }}"
-    cache_valid_time: "{{ collectd_cache_valid_time }}"
-    update_cache: "{{ collectd_update_cache }}"
+    cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
+    update_cache: "{{ collectd_repository_update_cache }}"
   with_items: "{{ collectd_plugins_with_dependencies
                   | map('extract', collectd_plugins_dependencies)
                   | list }}"

@@ -17,9 +17,10 @@ collectd_packages:
   - 'collectd=5.5.2*'
   - 'collectd-core=5.5.2*'
 collectd_package_state: 'present'
-collectd_cache_valid_time: 3600
-collectd_update_cache: True
+collectd_repository_cache_valid_time: 3600
+collectd_repository_update_cache: True
 collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
+collectd_system_dependencies: "{{ _collectd_system_dependencies | default([]) }}"
 
 
 # Service management
