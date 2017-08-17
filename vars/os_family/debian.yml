@@ -10,6 +10,9 @@ _collectd_repositories:
   - repo: "deb http://pkg.ci.collectd.org/deb {{ ansible_distribution_release | lower }} {{ collectd_repository_component }}"
 
 # Packages
+_collectd_packages:
+  - name: 'collectd=5.5*'
+  - name: 'collectd-core=5.5*'
 _collectd_system_dependencies:
   - name: 'ca-certificates'
 

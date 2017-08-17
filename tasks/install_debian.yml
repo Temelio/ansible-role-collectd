@@ -29,8 +29,8 @@
 
 - name: 'INSTALL | APT | Install collectd'
   apt:
-    name: "{{ item }}"
-    state: "{{ collectd_package_state }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state | default('present') }}"
     cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
     update_cache: "{{ collectd_repository_update_cache }}"
   with_items: "{{ collectd_packages }}"
@@ -40,7 +40,7 @@
 - name: 'INSTALL | APT | Install collectd plugins dependencies'
   apt:
     name: "{{ item }}"
-    state: "{{ collectd_package_state }}"
+    state: "{{ collectd_plugins_dependencies_state }}"
     cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
     update_cache: "{{ collectd_repository_update_cache }}"
   with_items: "{{ collectd_plugins_with_dependencies

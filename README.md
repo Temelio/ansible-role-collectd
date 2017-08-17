@@ -22,7 +22,6 @@ Currently, tests are done on:
 - Ubuntu Xenial
 
 and use:
-- Ansible 2.0.x
 - Ansible 2.1.x
 - Ansible 2.2.x
 - Ansible 2.3.x
@@ -46,26 +45,20 @@ $ MOLECULE_DRIVER=vagrant tox
 ### Default role variables
 
 ``` yaml
-# Defaults vars file for collectd role
+# Repositories management
+collectd_use_additional_repository: True
+collectd_repository_cache_valid_time: 3600
+collectd_repository_component: 'collectd-5.5'
+collectd_repository_update_cache: True
+collectd_repositories: "{{ _collectd_repositories | default([]) }}"
+collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
 
-# Package installation management
-# Instead collectd_use_ppa set to True, if ansible_distribution_release not
-# referenced in collectd_ppa_managed_distributions ppa, ppa will not installed
-collectd_use_ppa: True
-collectd_ppa_managed_distributions:
-  - 'trusty'
-  - 'xenial'
-collectd_ppa_key_id: '7543C08D555DC473B9270ACDAF7ECBB3476ACEB3'
-collectd_ppk_key_server: 'keyserver.ubuntu.com'
-collectd_ppa_source: 'ppa:collectd/collectd-5.5'
 
-collectd_packages:
-  - 'collectd=5.5.2*'
-  - 'collectd-core=5.5.2*'
-collectd_package_state: 'present'
-collectd_cache_valid_time: 3600
-collectd_update_cache: True
+# Packages management
+collectd_packages: "{{ _collectd_packages }}"
 collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
+collectd_plugins_dependencies_state: 'present'
+collectd_system_dependencies: "{{ _collectd_system_dependencies | default([]) }}"
 
 
 # Service management

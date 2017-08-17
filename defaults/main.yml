@@ -12,11 +12,9 @@ collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
 
 
 # Packages management
-collectd_packages:
-  - 'collectd=5.5*'
-  - 'collectd-core=5.5*'
-collectd_package_state: 'present'
+collectd_packages: "{{ _collectd_packages }}"
 collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
+collectd_plugins_dependencies_state: 'present'
 collectd_system_dependencies: "{{ _collectd_system_dependencies | default([]) }}"
 
 
