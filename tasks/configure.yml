@@ -34,7 +34,7 @@
     mode: '0400'
   notify: 'HANDLER | Restart collectd'
   no_log: True
-  when: "{{ collectd_network_server_auth_data | length > 0 }}"
+  when: "(collectd_network_server_auth_data | length) > 0"
 
 
 - name: 'CONFIG | LOGROTATE | Manage logrotate configuration'
@@ -44,4 +44,4 @@
     owner: "{{ collectd_logrotate_file_owner }}"
     group: "{{ collectd_logrotate_file_group }}"
     mode: "{{ collectd_logrotate_file_mode }}"
-  when: "{{ collectd_logrotate_managed }}"
+  when: "collectd_logrotate_managed | bool"
