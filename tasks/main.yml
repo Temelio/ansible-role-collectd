@@ -11,7 +11,7 @@
     - 'role::collectd::install'
 
 
-- name: 'INSTALL | Manage Debian family installation tasks'
+- name: 'INSTALL | Manage OS family installation tasks'
   become: True
   include: "{{ role_path }}/tasks/install_{{ ansible_os_family | lower }}.yml"
   tags:
