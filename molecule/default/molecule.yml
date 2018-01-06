@@ -30,7 +30,9 @@ provisioner:
     name: 'ansible-lint'
   inventory:
     group_vars:
-      all: {}
+      all:
+        collectd_network_server_auth_data:
+          foo: 'var'
     host_vars: {}
 scenario:
   name: 'default'
