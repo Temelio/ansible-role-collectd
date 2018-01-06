@@ -3,9 +3,8 @@
 # Manage Collectd configuration
 
 - name: 'CONFIG | MAIN | Manage collectd main configuration file'
-  become: True
   template:
-    src: 'etc/collectd/collectd.conf.j2'
+    src: "{{ role_path }}/templates/etc/collectd/collectd.conf.j2"
     dest: '/etc/collectd/collectd.conf'
     owner: 'root'
     group: 'root'
@@ -17,9 +16,8 @@
 
 
 - name: 'CONFIG | TYPES | Manage collectd custom types file'
-  become: True
   template:
-    src: 'etc/collectd/custom_types.db.j2'
+    src: "{{ role_path }}/templates/etc/collectd/custom_types.db.j2"
     dest: "{{ collectd_custom_types_file_path }}"
     owner: 'root'
     group: 'root'
@@ -28,24 +26,22 @@
 
 
 - name: 'CONFIG | NETWORK | Manage collectd network server auth file'
-  become: True
   template:
-    src: 'etc/collectd/auth.db.j2'
+    src: "{{ role_path }}/templates/etc/collectd/auth.db.j2"
     dest: "{{ collectd_network_auth_file_path }}"
     owner: 'root'
     group: 'root'
     mode: '0400'
   notify: 'HANDLER | Restart collectd'
   no_log: True
-  when: "{{ collectd_network_server_auth_data | length > 0 }}"
+  when: "(collectd_network_server_auth_data | length) > 0"
 
 
 - name: 'CONFIG | LOGROTATE | Manage logrotate configuration'
-  become: True
   template:
     src: "{{ role_path }}/templates/etc/logrotate.d/logrotate.conf.j2"
     dest: "{{ collectd_logrotate_file_path }}"
     owner: "{{ collectd_logrotate_file_owner }}"
     group: "{{ collectd_logrotate_file_group }}"
     mode: "{{ collectd_logrotate_file_mode }}"
-  when: "{{ collectd_logrotate_managed }}"
+  when: "collectd_logrotate_managed | bool"
