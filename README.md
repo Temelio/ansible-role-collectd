@@ -1,6 +1,10 @@
 # collectd
 
-[![Build Status](https://travis-ci.org/Temelio/ansible-role-collectd.svg?branch=master)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-collectd/master.svg?label=travis_master)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-collectd/develop.svg?label=travis_develop)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Updates](https://pyup.io/repos/github/Temelio/ansible-role-collectd/shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-collectd/)
+[![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-collectd/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-collectd/)
+[![Ansible Role](https://img.shields.io/ansible/role/11378.svg)](https://galaxy.ansible.com/Temelio/collectd/)
 
 Install collectd package.
 
