@@ -7,7 +7,7 @@
 # Global settings for the daemon.                                            #
 ##############################################################################
 
-{% if (collectd_fqdn_lookup != 'true') %}
+{% if (collectd_static_hostname == 'true') %}
 Hostname "{{ collectd_hostname }}"
 {% endif %}
 FQDNLookup {{ collectd_fqdn_lookup }}
