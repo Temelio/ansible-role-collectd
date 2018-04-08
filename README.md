@@ -76,6 +76,7 @@ collectd_network_auth_file_path: '/etc/collectd/network_server_auth.db'
 
 
 # Main configuration
+collectd_static_hostname: 'true'
 collectd_hostname: "{{ ansible_hostname }}"
 collectd_fqdn_lookup: 'true'
 collectd_base_dir: '/var/lib/collectd'
