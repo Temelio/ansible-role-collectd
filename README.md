@@ -1,42 +1,41 @@
 # collectd
 
-[![Build Status](https://travis-ci.org/Temelio/ansible-role-collectd.svg?branch=master)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-collectd/master.svg?label=travis_master)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Build Status](https://img.shields.io/travis/Temelio/ansible-role-collectd/develop.svg?label=travis_develop)](https://travis-ci.org/Temelio/ansible-role-collectd)
+[![Updates](https://pyup.io/repos/github/Temelio/ansible-role-collectd/shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-collectd/)
+[![Python 3](https://pyup.io/repos/github/Temelio/ansible-role-collectd/python-3-shield.svg)](https://pyup.io/repos/github/Temelio/ansible-role-collectd/)
+[![Ansible Role](https://img.shields.io/ansible/role/11378.svg)](https://galaxy.ansible.com/Temelio/collectd/)
 
 Install collectd package.
 
 ## Requirements
 
-This role requires Ansible 2.1 or higher,
+This role requires Ansible 2.2 or higher,
 and platform requirements are listed in the metadata file.
 
 ## Testing
 
-This role contains two tests methods :
-- locally using Vagrant
-- automatically with Travis
+This role use [Molecule](https://github.com/metacloud/molecule/) to run tests.
 
-### Testing dependencies
-- install [Vagrant](https://www.vagrantup.com)
-- install [Vagrant serverspec plugin](https://github.com/jvoorhis/vagrant-serverspec)
-```
-$ vagrant plugin install vagrant-serverspec
-```
-- install ruby dependencies
-```
-$ bundle install
-```
+Local and Travis tests run tests on Docker by default.
+See molecule documentation to use other backend.
+
+Currently, tests are done on:
+- Debian Jessie
+- Ubuntu Trusty
+- Ubuntu Xenial
+
+and use:
+- Ansible 2.2.x
+- Ansible 2.3.x
+- Ansible 2.4.x
 
 ### Running tests
 
-#### Run playbook and test
+#### Using Docker driver
 
-- if Vagrant box not running
 ```
-$ vagrant up
-```
-- if Vagrant box running
-```
-$ vagrant provision
+$ tox
 ```
 
 ## Role Variables
@@ -44,23 +43,20 @@ $ vagrant provision
 ### Default role variables
 
 ``` yaml
-# Package installation management
-# Instead collectd_use_ppa set to True, if ansible_distribution_release not
-# referenced in collectd_ppa_managed_distributions ppa, ppa will not installed
-collectd_use_ppa: True
-collectd_ppa_managed_distributions:
-  - 'trusty'
-collectd_ppa_key_id: '7543C08D555DC473B9270ACDAF7ECBB3476ACEB3'
-collectd_ppk_key_server: 'keyserver.ubuntu.com'
-collectd_ppa_source: 'ppa:collectd/collectd-5.5'
+# Repositories management
+collectd_use_additional_repository: True
+collectd_repository_cache_valid_time: 3600
+collectd_repository_component: 'collectd-5.5'
+collectd_repository_update_cache: True
+collectd_repositories: "{{ _collectd_repositories | default([]) }}"
+collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
 
-collectd_packages:
-  - 'collectd=5.5.2*'
-  - 'collectd-core=5.5.2*'
-collectd_package_state: 'present'
-collectd_cache_valid_time: 3600
-collectd_update_cache: True
+
+# Packages management
+collectd_packages: "{{ _collectd_packages }}"
 collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
+collectd_plugins_dependencies_state: 'present'
+collectd_system_dependencies: "{{ _collectd_system_dependencies | default([]) }}"
 
 
 # Service management
@@ -80,6 +76,7 @@ collectd_network_auth_file_path: '/etc/collectd/network_server_auth.db'
 
 
 # Main configuration
+collectd_static_hostname: 'true'
 collectd_hostname: "{{ ansible_hostname }}"
 collectd_fqdn_lookup: 'true'
 collectd_base_dir: '/var/lib/collectd'
@@ -171,9 +168,11 @@ None
 
 ## Example Playbook
 
-    - hosts: servers
-      roles:
-         - { role: Temelio.collectd }
+``` yaml
+- hosts: servers
+  roles:
+    - { role: Temelio.collectd }
+```
 
 ## License
 
@@ -182,6 +181,5 @@ MIT
 ## Author Information
 
 Alexandre Chaussier (for Temelio company)
-- http://temelio.com
+- http://www.temelio.com
 - alexandre.chaussier [at] temelio.com
-
