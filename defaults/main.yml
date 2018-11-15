@@ -3,9 +3,9 @@
 # Defaults vars file for collectd role
 
 # Repositories management
-collectd_use_additional_repository: True
+collectd_use_additional_repository: "{{ _collectd_use_additional_repository }}"
 collectd_repository_cache_valid_time: 3600
-collectd_repository_component: 'collectd-5.5'
+collectd_repository_component: "{{ _collectd_repository_component }}"
 collectd_repository_update_cache: True
 collectd_repositories: "{{ _collectd_repositories | default([]) }}"
 collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
