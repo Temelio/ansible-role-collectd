@@ -28,11 +28,12 @@ def test_service(host):
     Test service settings
     """
 
-    assert host.service('collectd').is_enabled
-    if host.system_info.codename in ['jessie', 'trusty']:
-        assert 'is running' in host.check_output('service collectd status')
-    else:
-        assert host.service('collectd').is_running
+    service = host.service('collectd')
+
+    assert service.is_enabled
+
+    assert 'running' in \
+        host.check_output('service collectd status')
 
 
 def test_process(host):
