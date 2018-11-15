@@ -10,7 +10,7 @@ Install collectd package.
 
 ## Requirements
 
-This role requires Ansible 2.2 or higher,
+This role requires Ansible 2.4, 2.5 or 2.6
 and platform requirements are listed in the metadata file.
 
 ## Testing
@@ -22,13 +22,15 @@ See molecule documentation to use other backend.
 
 Currently, tests are done on:
 - Debian Jessie
+- Debian Stretch
 - Ubuntu Trusty
 - Ubuntu Xenial
+- Ubuntu Bionic
 
 and use:
-- Ansible 2.2.x
-- Ansible 2.3.x
 - Ansible 2.4.x
+- Ansible 2.5.x
+- Ansible 2.6.x
 
 ### Running tests
 
@@ -44,9 +46,9 @@ $ tox
 
 ``` yaml
 # Repositories management
-collectd_use_additional_repository: True
+collectd_use_additional_repository: "{{ _collectd_use_additional_repository }}"
 collectd_repository_cache_valid_time: 3600
-collectd_repository_component: 'collectd-5.5'
+collectd_repository_component: "{{ _collectd_repository_component }}"
 collectd_repository_update_cache: True
 collectd_repositories: "{{ _collectd_repositories | default([]) }}"
 collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
@@ -180,6 +182,6 @@ MIT
 
 ## Author Information
 
+upgrade: Lise Machetel (for Temelio Company)
 Alexandre Chaussier (for Temelio company)
 - http://www.temelio.com
-- alexandre.chaussier [at] temelio.com

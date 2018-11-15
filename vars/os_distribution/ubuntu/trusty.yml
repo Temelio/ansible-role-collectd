@@ -1,6 +1,11 @@
 ---
 
 # Ubuntu Trusty specific vars
+_collectd_use_additional_repository: true
+_collectd_repository_component: 'collectd-5.5'
+_collectd_packages:
+  - name: 'collectd=5.5*'
+  - name: 'collectd-core=5.5*'
 
 _collectd_plugins_dependencies:
   amqp:

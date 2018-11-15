@@ -7,6 +7,12 @@ driver:
 lint:
   name: 'yamllint'
 platforms:
+  - name: 'collectd-docker-stretch'
+    image: 'minimum2scp/systemd-stretch'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+    privileged: True
   - name: "collectd-docker-jessie"
     image: 'minimum2scp/systemd-jessie:latest'
     command: '/sbin/init'
@@ -15,6 +21,12 @@ platforms:
     privileged: True
   - name: "collectd-docker-xenial"
     image: 'solita/ubuntu-systemd:16.04'
+    command: '/sbin/init'
+    cap_add:
+      - 'SYS_PTRACE'
+    privileged: True
+  - name: "collectd-docker-bionic"
+    image: 'solita/ubuntu-systemd:18.04'
     command: '/sbin/init'
     cap_add:
       - 'SYS_PTRACE'

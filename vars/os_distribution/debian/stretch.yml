@@ -1,0 +1,7 @@
+---
+
+_collectd_use_additional_repository: false
+_collectd_repository_component: 'collectd-5.7'
+_collectd_packages:
+  - name: 'collectd=5.7*'
+  - name: 'collectd-core=5.7*'
