@@ -1,4 +1,4 @@
-molecule==2.18.1
+molecule==2.20.0
 pytest==3.8.1
 testinfra==1.16.0
 tox==3.4.0
