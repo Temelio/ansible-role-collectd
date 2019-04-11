@@ -7,105 +7,161 @@ _collectd_packages:
   - name: 'collectd=5.5*'
   - name: 'collectd-core=5.5*'
 
+# examples of plugins dependencies
 _collectd_plugins_dependencies:
   amqp:
-    - 'librabbitmq4'
+    - name: 'librabbitmq4'
+      state: 'present'
   apache:
-    - 'libcurl3-gnutls'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
   ascent:
-    - 'libcurl3-gnutls'
-    - 'libxml2'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
   bind:
-    - 'libcurl3-gnutls'
-    - 'libxml2'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
   ceph:
-    - 'libyajl2'
+    - name: 'libyajl2'
+      state: 'present'
   curl:
-    - 'libcurl3-gnutls'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
   curl_json:
-    - 'libcurl3-gnutls'
-    - 'libyajl2'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libyajl2'
+      state: 'present'
   curl_xml:
-    - 'libcurl3-gnutls'
-    - 'libxml2'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
   dbi:
-    - 'libdbi1'
+    - name: 'libdbi1'
+      state: 'present'
   disk:
-    - 'libudev1'
+    - name: 'libudev1'
+      state: 'present'
   dns:
-    - 'libpcap0.8'
+    - name: 'libpcap0.8'
+      state: 'present'
   gmond:
-    - 'libganglia1'
+    - name: 'libganglia1'
+      state: 'present'
   ipmi:
-    - 'libopenipmi0'
+    - name: 'libopenipmi0'
+      state: 'present'
   iptables:
-    - 'iptables'
+    - name: 'iptables'
+      state: 'present'
   log_logstash:
-    - 'libyajl2'
+    - name: 'libyajl2'
+      state: 'present'
   lvm:
-    - 'liblvm2app2.2'
+    - name: 'liblvm2app2.2'
+      state: 'present'
   memcachec:
-    - 'libmemcached11'
+    - name: 'libmemcached11'
+      state: 'present'
   modbus:
-    - 'libmodbus5'
+    - name: 'libmodbus5'
+      state: 'present'
   mysql:
-    - 'libmysqlclient20'
+    - name: 'libmysqlclient20'
+      state: 'present'
   netlink:
-    - 'libmnl0'
+    - name: 'libmnl0'
+      state: 'present'
   network:
-    - 'libgcrypt20'
+    - name: 'libgcrypt20'
+      state: 'present'
   nginx:
-    - 'libcurl3-gnutls'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
   notify_desktop:
-    - 'libglib2.0-0'
-    - 'libnotify4'
+    - name: 'libglib2.0-0'
+      state: 'present'
+    - name: 'libnotify4'
+      state: 'present'
   notify_email:
-    - 'libesmtp6'
+    - name: 'libesmtp6'
+      state: 'present'
   nut:
-    - 'libupsclient4'
+    - name: 'libupsclient4'
+      state: 'present'
   onewire:
-    - 'libowcapi-3.1-1'
+    - name: 'libowcapi-3.1-1'
+      state: 'present'
   openldap:
-    - 'libldap-2.4-2'
+    - name: 'libldap-2.4-2'
+      state: 'present'
   perl:
-    - 'libperl5.22'
+    - name: 'libperl5.22'
+      state: 'present'
   pinba:
-    - 'libprotobuf-c1'
+    - name: 'libprotobuf-c1'
+      state: 'present'
   ping:
-    - 'liboping0'
+    - name: 'liboping0'
+      state: 'present'
   postgresql:
-    - 'libpq5'
+    - name: 'libpq5'
+      state: 'present'
   python:
-    - 'libpython2.7'
+    - name: 'libpython2.7'
+      state: 'present'
   redis:
-    - 'libhiredis0.13'
+    - name: 'libhiredis0.13'
+      state: 'present'
   rrdcached:
-    - 'librrd4'
+    - name: 'librrd4'
+      state: 'present'
   rrdtool:
-    - 'librrd4'
+    - name: 'librrd4'
+      state: 'present'
   sensors:
-    - 'lm-sensors'
-    - 'libsensors4'
+    - name: 'lm-sensors'
+      state: 'present'
+    - name: 'libsensors4'
+      state: 'present'
   sigrok:
-    - 'libglib2.0-0'
-    - 'libsigrok2'
+    - name: 'libglib2.0-0'
+      state: 'present'
+    - name: 'libsigrok2'
+      state: 'present'
   smart:
-    - 'libatasmart4'
-    - 'libudev1'
+    - name: 'libatasmart4'
+      state: 'present'
+    - name: 'libudev1'
+      state: 'present'
   snmp:
-    - 'libsnmp30'
+    - name: 'libsnmp30'
+      state: 'present'
   tokyotyrant:
-    - 'libtokyotyrant3'
+    - name: 'libtokyotyrant3'
+      state: 'present'
   varnish:
-    - 'libvarnishapi1'
+    - name: 'libvarnishapi1'
+      state: 'present'
   virt:
-    - 'libvirt0'
-    - 'libxml2'
+    - name: 'libvirt0'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
   write_http:
-    - 'libcurl3-gnutls'
+    - name: 'libcurl3-gnutls'
+      state: 'present'
   write_kafka:
-    - 'librdkafka1'
+    - name: 'librdkafka1'
+      state: 'present'
   write_redis:
-    - 'libhiredis0.13'
+    - name: 'libhiredis0.13'
+      state: 'present'
   write_riemann:
-    - 'libprotobuf-c1'
+    - name: 'libprotobuf-c1'
+      state: 'present'
