@@ -12,7 +12,7 @@
     backup: True
     validate: 'collectd -t -C %s'
   notify: 'HANDLER | Restart collectd'
-  no_log: True
+  no_log: true
 
 
 - name: 'CONFIG | TYPES | Manage collectd custom types file'
@@ -33,8 +33,8 @@
     group: 'root'
     mode: '0400'
   notify: 'HANDLER | Restart collectd'
-  no_log: True
-  when: "(collectd_network_server_auth_data | length) > 0"
+  no_log: true
+  when: (collectd_network_server_auth_data | length) > 0
 
 
 - name: 'CONFIG | LOGROTATE | Manage logrotate configuration'
@@ -44,4 +44,4 @@
     owner: "{{ collectd_logrotate_file_owner }}"
     group: "{{ collectd_logrotate_file_group }}"
     mode: "{{ collectd_logrotate_file_mode }}"
-  when: "collectd_logrotate_managed | bool"
+  when: collectd_logrotate_managed | bool

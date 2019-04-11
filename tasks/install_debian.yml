@@ -1,7 +1,6 @@
 ---
 
 # Manage Collectd install on Debian systems
-
 - name: 'INSTALL | APT | Install system dependencies'
   apt:
     name: "{{ item.name }}"
@@ -16,7 +15,7 @@
     id: "{{ item.id }}"
     keyserver: "{{ item.keyserver }}"
   with_items: "{{ collectd_repositories_keys }}"
-  when: "collectd_use_additional_repository | bool"
+  when: collectd_use_additional_repository | bool
 
 
 - name: 'INSTALL | APT | Install additional repository'
@@ -24,7 +23,7 @@
     repo: "{{ item.repo }}"
     update_cache: True
   with_items: "{{ collectd_repositories }}"
-  when: "collectd_use_additional_repository | bool"
+  when: collectd_use_additional_repository | bool
 
 
 - name: 'INSTALL | APT | Install collectd'
@@ -36,15 +35,12 @@
   with_items: "{{ collectd_packages }}"
   notify: 'HANDLER | Restart collectd'
 
-
 - name: 'INSTALL | APT | Install collectd plugins dependencies'
   apt:
-    name: "{{ item }}"
-    state: "{{ collectd_plugins_dependencies_state }}"
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
     cache_valid_time: "{{ collectd_repository_cache_valid_time }}"
     update_cache: "{{ collectd_repository_update_cache }}"
-  with_items: "{{ collectd_plugins_with_dependencies
-                  | map('extract', collectd_plugins_dependencies)
-                  | list }}"
-  when: "(collectd_plugins_dependencies | length) > 0"
+  with_items: "{{ collectd_plugins_with_dependencies_pkg }}"
+  when: (collectd_plugins_dependencies | length) > 0
   notify: 'HANDLER | Restart collectd'

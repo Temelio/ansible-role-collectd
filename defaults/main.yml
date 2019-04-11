@@ -14,7 +14,6 @@ collectd_repositories_keys: "{{ _collectd_repositories_keys | default([]) }}"
 # Packages management
 collectd_packages: "{{ _collectd_packages }}"
 collectd_plugins_dependencies: "{{ _collectd_plugins_dependencies | default([]) }}"
-collectd_plugins_dependencies_state: 'present'
 collectd_system_dependencies: "{{ _collectd_system_dependencies | default([]) }}"
 
 
@@ -70,8 +69,11 @@ collectd_plugins: "{{
   collectd_plugins_config | map(attribute='name') | list }}"
 
 collectd_plugins_with_dependencies: "{{
-  collectd_plugins_dependencies.keys()
+  _collectd_plugins_dependencies.keys()
   | intersect(collectd_plugins) }}"
+collectd_plugins_with_dependencies_pkg: "{{ collectd_plugins_with_dependencies
+                  | map('extract', collectd_plugins_dependencies)
+                  | list }}"
 
 collectd_plugins_config: "{{
   collectd_base_plugins_config | union(collectd_extra_plugins_config) }}"

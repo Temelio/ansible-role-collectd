@@ -5,3 +5,161 @@ _collectd_repository_component: 'collectd-5.7'
 _collectd_packages:
   - name: 'collectd=5.7*'
   - name: 'collectd-core=5.7*'
+
+_collectd_plugins_dependencies:
+  amqp:
+    - name: 'librabbitmq4'
+      state: 'present'
+  apache:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+  ascent:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
+  bind:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
+  ceph:
+    - name: 'libyajl2'
+      state: 'present'
+  curl:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+  curl_json:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libyajl2'
+      state: 'present'
+  curl_xml:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
+  dbi:
+    - name: 'libdbi1'
+      state: 'present'
+  disk:
+    - name: 'libudev1'
+      state: 'present'
+  dns:
+    - name: 'libpcap0.8'
+      state: 'present'
+  gmond:
+    - name: 'libganglia1'
+      state: 'present'
+  ipmi:
+    - name: 'libopenipmi0'
+      state: 'present'
+  iptables:
+    - name: 'iptables'
+      state: 'present'
+  log_logstash:
+    - name: 'libyajl2'
+      state: 'present'
+  lvm:
+    - name: 'liblvm2app2.2'
+      state: 'present'
+  memcachec:
+    - name: 'libmemcached11'
+      state: 'present'
+  modbus:
+    - name: 'libmodbus5'
+      state: 'present'
+  mysql:
+    - name: 'libmysqlclient20'
+      state: 'present'
+  netlink:
+    - name: 'libmnl0'
+      state: 'present'
+  network:
+    - name: 'libgcrypt20'
+      state: 'present'
+  nginx:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+  notify_desktop:
+    - name: 'libglib2.0-0'
+      state: 'present'
+    - name: 'libnotify4'
+      state: 'present'
+  notify_email:
+    - name: 'libesmtp6'
+      state: 'present'
+  nut:
+    - name: 'libupsclient4'
+      state: 'present'
+  onewire:
+    - name: 'libowcapi-3.1-5'
+      state: 'present'
+  openldap:
+    - name: 'libldap-2.4-2'
+      state: 'present'
+  perl:
+    - name: 'libperl5.24'
+      state: 'present'
+  pinba:
+    - name: 'libprotobuf-c1'
+      state: 'present'
+  ping:
+    - name: 'liboping0'
+      state: 'present'
+  postgresql:
+    - name: 'libpq5'
+      state: 'present'
+  python:
+    - name: 'libpython2.7'
+      state: 'present'
+  redis:
+    - name: 'libhiredis0.13'
+      state: 'present'
+  rrdcached:
+    - name: 'librrdr8'
+      state: 'present'
+  rrdtool:
+    - name: 'librrd8'
+      state: 'present'
+  sensors:
+    - name: 'lm-sensors'
+      state: 'present'
+    - name: 'libsensors4'
+      state: 'present'
+  sigrok:
+    - name: 'libglib2.0-0'
+      state: 'present'
+    - name: 'libsigrok4'
+      state: 'present'
+  smart:
+    - name: 'libatasmart4'
+      state: 'present'
+    - name: 'libudev1'
+      state: 'present'
+  snmp:
+    - name: 'libsnmp30'
+      state: 'present'
+  tokyotyrant:
+    - name: 'libtokyotyrant3'
+      state: 'present'
+  varnish:
+    - name: 'libvarnishapi1'
+      state: 'present'
+  virt:
+    - name: 'libvirt0'
+      state: 'present'
+    - name: 'libxml2'
+      state: 'present'
+  write_http:
+    - name: 'libcurl3-gnutls'
+      state: 'present'
+  write_kafka:
+    - name: 'librdkafka1'
+      state: 'present'
+  write_redis:
+    - name: 'libhiredis0.13'
+      state: 'present'
+  write_riemann:
+    - name: 'libprotobuf-c1'
+      state: 'present'
