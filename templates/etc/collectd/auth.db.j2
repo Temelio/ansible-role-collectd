@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {% for username, password in collectd_network_server_auth_data.items() %}
 {{ username }}: {{ password }}

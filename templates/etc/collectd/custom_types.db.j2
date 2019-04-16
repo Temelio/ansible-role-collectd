@@ -1,4 +1,4 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {% if collectd_custom_types %}
 {% for name, value in collectd_custom_types.items() %}

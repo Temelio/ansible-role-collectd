@@ -1,5 +1,5 @@
 # Customer websites visits Logrotate configuration file
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
 {{ collectd_logrotate_pattern }} {
 {% for option in collectd_logrotate_options %}
